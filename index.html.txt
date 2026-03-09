@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evoora Home Furniture | Luxury Sri Lanka</title>
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts (optional clean typography) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #faf9f6;
+      color: #1e1e1e;
+    }
+
+    /* luxury black & gold palette */
+    :root {
+      --gold: #c6a43f;
+      --black: #1a1a1a;
+      --dark-grey: #2e2e2e;
+      --light-bg: #f5f5f5;
+      --white: #ffffff;
+      --shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+    }
+
+    /* smooth scroll & animations */
+    html { scroll-behavior: smooth; }
+    .fade-in { animation: fadeIn 0.6s ease forwards; }
+    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    /* layout */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 64px 0; }
+
+    /* typography */
+    h1, h2, h3 { font-weight: 500; letter-spacing: -0.02em; }
+    h2 { font-size: 2.2rem; border-left: 6px solid var(--gold); padding-left: 20px; margin-bottom: 40px; color: var(--black); }
+
+    /* header / navbar */
+    .navbar {
+      background: var(--black);
+      padding: 16px 0;
+      position: sticky; top: 0; z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .nav-container {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-size: 1.8rem; font-weight: 600; color: var(--gold); letter-spacing: 1px; }
+    .logo span { color: white; font-weight: 300; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { color: #ddd; text-decoration: none; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .search-bar {
+      display: flex; align-items: center; background: #333; border-radius: 40px; padding: 4px 12px;
+    }
+    .search-bar input {
+      background: transparent; border: none; padding: 8px; color: white; outline: none; width: 160px;
+    }
+    .search-bar button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 1.2rem; }
+    .cart-icon { color: white; font-size: 1.4rem; position: relative; cursor: pointer; }
+    .cart-count { background: var(--gold); color: black; border-radius: 50%; font-size: 0.7rem; padding: 2px 6px; position: absolute; top: -8px; right: -10px; }
+
+    /* hero */
+    .hero {
+      background: linear-gradient(107deg, #0a0a0a 0%, #2b2b2b 100%);
+      color: white; padding: 80px 0; position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: 0; right: 0; width: 40%; height: 100%;
+      background: url('https://images.unsplash.com/photo-1618213749405-2a8a4bd2c3ad?q=80&w=2070&auto=format&fit=crop') center/cover; opacity: 0.4;
+    }
+    .hero-content { max-width: 600px; position: relative; z-index: 2; }
+    .hero h1 { font-size: 4rem; font-weight: 600; line-height: 1.1; }
+    .hero h1 span { color: var(--gold); }
+    .hero p { font-size: 1.3rem; margin: 20px 0 30px; color: #ccc; }
+    .btn-gold {
+      background: var(--gold); border: none; padding: 14px 38px; font-size: 1.1rem; font-weight: 600;
+      color: black; border-radius: 50px; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block;
+    }
+    .btn-gold:hover { background: #d8b14e; transform: scale(1.02); box-shadow: 0 10px 20px rgba(198,164,63,0.3); }
+
+    /* product cards grid */
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 30px; }
+    .product-card {
+      background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.25s; cursor: pointer; border: 1px solid rgba(198,164,63,0.1);
+    }
+    .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+    .product-img {
+      width: 100%; height: 220px; object-fit: cover; background: #f0f0f0; transition: transform 0.5s;
+    }
+    .product-card:hover .product-img { transform: scale(1.02); }
+    .product-info { padding: 18px; }
+    .product-category { color: var(--gold); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    .product-name { font-weight: 600; font-size: 1.2rem; margin: 5px 0; }
+    .product-price { color: var(--black); font-weight: 700; font-size: 1.3rem; margin: 8px 0; }
+    .product-desc { color: #555; font-size: 0.9rem; margin-bottom: 15px; }
+    .btn-small {
+      background: transparent; border: 1.5px solid var(--gold); color: var(--black); padding: 8px 15px;
+      border-radius: 30px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: 0.2s; margin-right: 8px;
+    }
+    .btn-small:hover { background: var(--gold); color: black; }
+    .btn-black { background: var(--black); border: 1.5px solid var(--black); color: white; }
+    .btn-black:hover { background: #333; }
+
+    /* special offer banner */
+    .offer-banner {
+      background: linear-gradient(135deg, #1f1f1f 0%, #3c2f0d 100%);
+      border-radius: 40px; padding: 48px; color: white; display: flex; flex-wrap: wrap; justify-content: space-between;
+      align-items: center; margin: 40px 0; border: 1px solid var(--gold);
+    }
+    .offer-text h3 { font-size: 2.5rem; } .offer-text p { color: #e0c77c; }
+
+    /* reviews */
+    .reviews-grid { display: flex; gap: 24px; flex-wrap: wrap; }
+    .review-card {
+      background: white; border-radius: 30px; padding: 28px; flex: 1 1 280px; box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+    }
+    .review-card i { color: var(--gold); font-size: 2rem; margin-bottom: 15px; }
+    .stars { color: gold; margin: 10px 0; }
+
+    /* footer/whatsapp */
+    .whatsapp-float {
+      position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 60px; height: 60px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;
+      font-size: 2rem; box-shadow: 0 10px 20px rgba(37,211,102,0.3); z-index: 999; transition: 0.2s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* modal / product quick detail overlay (simulated product details page) */
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+      z-index: 2000; justify-content: center; align-items: center;
+    }
+    .modal-content {
+      background: white; max-width: 900px; width: 90%; border-radius: 40px; padding: 30px; display: flex; flex-wrap: wrap;
+      gap: 30px; position: relative; max-height: 80vh; overflow-y: auto;
+    }
+    .modal-close { position: absolute; top: 20px; right: 25px; font-size: 2rem; cursor: pointer; }
+    .gallery-thumb { display: flex; gap: 10px; margin-top: 15px; }
+    .gallery-thumb img { width: 70px; height: 70px; border-radius: 12px; object-fit: cover; cursor: pointer; border: 2px solid transparent; }
+    .gallery-thumb img.active { border-color: var(--gold); }
+
+    /* checkout page (simple overlay) */
+    .checkout-section { background: #fff; border-radius: 50px; padding: 40px; box-shadow: var(--shadow); }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { font-weight: 600; display: block; margin-bottom: 8px; }
+    .form-group input, .form-group select { width: 100%; padding: 14px; border: 1px solid #ccc; border-radius: 16px; }
+    .payment-option { display: flex; gap: 30px; margin: 30px 0; }
+    .payment-option label { display: flex; align-items: center; gap: 8px; }
+
+    /* admin panel (simple inside page) */
+    .admin-upload { background: #f3f3f3; border-radius: 40px; padding: 40px; margin-top: 40px; }
+
+    /* map placeholder */
+    .map-placeholder { background: #ddd; height: 250px; border-radius: 40px; display: flex; align-items: center; justify-content: center; }
+
+    /* utility */
+    .flex-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+    .mt-4 { margin-top: 40px; }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      .nav-container { flex-direction: column; gap: 12px; }
+      .hero h1 { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- floating whatsapp -->
+  <a href="https://wa.me/94771234567?text=Hello%20Evoora!%20I'm%20interested%20in%20furniture." class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <div class="logo">EVOORA<span> Home</span></div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <a href="#admin">Admin</a>
+        <div class="search-bar"><input type="text" placeholder="Search..."><button><i class="fas fa-search"></i></button></div>
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-count">3</span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1><span>Evoora</span> Home Furniture</h1>
+      <p>Luxury Furniture for Your Dream Home</p>
+      <a href="#categories" class="btn-gold">Explore collection <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- Featured products / categories container -->
+  <div class="container" id="categories">
+    <!-- Filter by category -->
+    <div class="flex-row" style="justify-content: space-between; margin: 30px 0 20px;">
+      <h2>Signature pieces</h2>
+      <select id="categoryFilter" style="padding: 10px 20px; border-radius: 30px; border:1px solid gold;">
+        <option value="all">All categories</option>
+        <option value="Beds">Beds</option>
+        <option value="Wardrobes">Wardrobes</option>
+        <option value="Sofas">Sofas</option>
+        <option value="Dining">Dining Tables</option>
+        <option value="Mattresses">Mattresses</option>
+        <option value="TV Cabinets">TV Cabinets</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <!-- Product grid -->
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <!-- Special offer banner -->
+  <div class="container">
+    <div class="offer-banner">
+      <div class="offer-text"><h3>Mid Year Luxe Sale</h3><p>Up to 40% off on selected sofas + free delivery</p></div>
+      <div><span style="font-size: 3rem; color: gold;">40%</span></div>
+    </div>
+  </div>
+
+  <!-- Customer reviews -->
+  <div class="container">
+    <h2>What our clients say</h2>
+    <div class="reviews-grid">
+      <div class="review-card"><i class="fas fa-quote-right"></i><p>Exceptional quality, the gold handles are stunning.</p><div class="stars">?????</div><span>- Nimali, Colombo</span></div>
+      <div class="review-card"><i class="fas fa-quote-right"></i><p>Very comfortable bed and fast delivery in Kandy.</p><div class="stars">?????</div><span>- Roshan, Kandy</span></div>
+      <div class="review-card"><i class="fas fa-quote-right"></i><p>They customized my wardrobe in black & gold, love it!</p><div class="stars">?????</div><span>- Priya, Galle</span></div>
+    </div>
+  </div>
+
+  <!-- Business Gallery + Admin upload (simplified combined) -->
+  <div class="container" id="gallery">
+    <h2>?? Business Gallery (real shop photos)</h2>
+    <div class="product-grid" id="galleryGrid"></div>
+    <!-- admin panel -->
+    <div class="admin-upload" id="admin">
+      <h3 style="color:var(--gold);">?? Admin upload (simple demo)</h3>
+      <div class="flex-row">
+        <input type="text" id="prodName" placeholder="Product name" value="Luxury Bed">
+        <input type="number" id="prodPrice" placeholder="Price LKR" value="185000">
+        <select id="prodCat"><option>Beds</option><option>Wardrobes</option><option>Sofas</option></select>
+        <input type="text" id="prodImg" placeholder="image url" value="https://images.unsplash.com/photo-1505693314120-0d4438678915?w=400&auto=format">
+        <button class="btn-small" id="uploadBtn">Upload product</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact & map page -->
+  <div class="container" id="contact" style="margin-bottom: 60px;">
+    <h2>Visit our showroom</h2>
+    <div class="flex-row">
+      <div style="flex:2"><div class="map-placeholder"><i class="fas fa-map-marked-alt" style="font-size:3rem; color:var(--gold);"></i>?? Evoora Home, Colombo 7</div></div>
+      <div style="flex:1">
+        <p><i class="fas fa-phone-alt gold"></i> +94 77 123 4567</p>
+        <p><i class="fab fa-whatsapp gold"></i> +94 71 234 5678</p>
+        <p><i class="fab fa-facebook gold"></i> /evoora.lk</p>
+        <a href="#" class="btn-small"><i class="fab fa-whatsapp"></i> WhatsApp us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- hidden modals: product details modal & checkout modal -->
+  <div id="productModal" class="modal">
+    <div class="modal-content" id="modalDynamic"></div>
+  </div>
+
+  <div id="checkoutModal" class="modal">
+    <div class="modal-content checkout-section" style="max-width:500px;">
+      <span class="modal-close" onclick="closeCheckout()">&times;</span>
+      <h2>Checkout</h2>
+      <div class="form-group"><label>Name</label><input id="checkoutName" placeholder="Full name"></div>
+      <div class="form-group"><label>Phone</label><input id="checkoutPhone" placeholder="07X XXX XXXX"></div>
+      <div class="form-group"><label>Address</label><input id="checkoutAddress" placeholder="No, street"></div>
+      <div class="form-group"><label>City</label><input id="checkoutCity" placeholder="Colombo"></div>
+      <div class="payment-option">
+        <label><input type="radio" name="payment" value="KOKO" checked> ?? KOKO (installment)</label>
+        <label><input type="radio" name="payment" value="COD"> ?? Cash on Delivery</label>
+      </div>
+      <button class="btn-gold" style="width:100%" onclick="placeOrder()">Confirm order</button>
+    </div>
+  </div>
+
+  <script>
+    // ---------- DATA ----------
+    const products = [
+      { id:1, name:'Elysian Bed', category:'Beds', price:185000, desc:'King size, velvet finish', img:'https://images.unsplash.com/photo-1505693314120-0d4438678915?w=400&auto=format', gallery:['https://images.unsplash.com/photo-1505693314120-0d4438678915?w=400','https://images.unsplash.com/photo-1595526114035-0d45ed16cfb8?w=400'] },
+      { id:2, name:'Milano Wardrobe', category:'Wardrobes', price:320000, desc:'4 doors, mirrored, gold handles', img:'https://images.unsplash.com/photo-1595425964072-508d0e9c84b4?w=400' },
+      { id:3, name:'Velvet Chesterfield Sofa', category:'Sofas', price:275000, desc:'3-seater, gold legs', img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400' },
+      { id:4, name:'Marble Dining Table', category:'Dining', price:410000, desc:'6 chairs, black marble', img:'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=400' },
+      { id:5, name:'Ortho Cool Mattress', category:'Mattresses', price:89000, desc:'Queen size, memory foam', img:'https://images.unsplash.com/photo-1631641174410-26b7c5bfa4ef?w=400' },
+      { id:6, name:'Gold Accent TV Cabinet', category:'TV Cabinets', price:159000, desc:'LED strip, floating', img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400' },
+      { id:7, name:'Bar Cabinet', category:'Other', price:120000, desc:'Gold interior, glass', img:'https://images.unsplash.com/photo-1594221708779-94832f4320d1?w=400' },
+    ];
+
+    // gallery specific images (real shop images placeholder)
+    const galleryImages = [
+      'https://images.unsplash.com/photo-1617325247661-675ab4b64ae4?w=400', 'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=400', 'https://images.unsplash.com/photo-1616628188859-7f11e2f4f9f2?w=400'
+    ];
+
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+      filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card fade-in';
+        card.onclick = () => openProductModal(p);
+        card.innerHTML = `<img src="${p.img}" class="product-img" loading="lazy">
+          <div class="product-info"><span class="product-category">${p.category}</span>
+          <div class="product-name">${p.name}</div><div class="product-price">LKR ${p.price.toLocaleString()}</div>
+          <div class="product-desc">${p.desc}</div>
+          <button class="btn-small" onclick="event.stopPropagation();buyNow('${p.name}')"><i class="fas fa-bolt"></i> Buy Now</button>
+          <button class="btn-small btn-black" onclick="event.stopPropagation();addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Cart</button></div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderGallery() {
+      const gGrid = document.getElementById('galleryGrid');
+      gGrid.innerHTML = '';
+      galleryImages.forEach(url => {
+        const div = document.createElement('div');
+        div.className = 'product-card';
+        div.innerHTML = `<img src="${url}" class="product-img" style="height:200px"><div class="product-info"><p>?? Real shop photo</p></div>`;
+        gGrid.appendChild(div);
+      });
+    }
+
+    // modal product details
+    function openProductModal(prod) {
+      const modal = document.getElementById('productModal');
+      const dyn = document.getElementById('modalDynamic');
+      dyn.innerHTML = `<span class="modal-close" onclick="closeModal()">&times;</span>
+        <div style="flex:1"><img src="${prod.img}" style="width:100%; border-radius:24px;" id="mainImg">
+        <div class="gallery-thumb">${prod.gallery ? prod.gallery.map((g,i)=>`<img src="${g}" onclick="document.getElementById('mainImg').src='${g}'">`).join('') : '<img src="'+prod.img+'">'}</div></div>
+        <div style="flex:1"><h2>${prod.name}</h2><p style="color:var(--gold);">LKR ${prod.price}</p><p>${prod.desc}</p>
+        <p>Available colors: <span style="background:black; width:20px;height:20px;display:inline-block;border-radius:50%;"></span> <span style="background:gold; width:20px;height:20px;display:inline-block;border-radius:50%;"></span></p>
+        <button class="btn-small" onclick="buyNow('${prod.name}')"><i class="fas fa-bolt"></i> Buy Now</button>
+        <button class="btn-small btn-black" onclick="addToCart(${prod.id})"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+        </div>`;
+      modal.style.display = 'flex';
+    }
+
+    window.closeModal = () => document.getElementById('productModal').style.display = 'none';
+
+    // Buy now: open checkout modal
+    window.buyNow = (prodName) => {
+      document.getElementById('productModal').style.display = 'none';
+      document.getElementById('checkoutModal').style.display = 'flex';
+      // optional prefill thankyou
+    };
+
+    window.closeCheckout = () => document.getElementById('checkoutModal').style.display = 'none';
+
+    window.placeOrder = () => {
+      alert('? Order placed! (via KOKO or COD). Thank you for shopping Evoora.');
+      closeCheckout();
+    };
+
+    window.addToCart = (id) => {
+      alert(`Product ${id} added to cart (demo)`);
+    };
+
+    // filter event
+    document.getElementById('categoryFilter').addEventListener('change', (e) => {
+      renderProducts(e.target.value);
+    });
+
+    // admin upload
+    document.getElementById('uploadBtn').addEventListener('click', () => {
+      const name = document.getElementById('prodName').value;
+      const price = +document.getElementById('prodPrice').value;
+      const cat = document.getElementById('prodCat').value;
+      const img = document.getElementById('prodImg').value;
+      const newProd = { id: Date.now(), name, category: cat, price, desc: 'Admin uploaded', img };
+      products.push(newProd);
+      renderProducts(document.getElementById('categoryFilter').value);
+      alert('Uploaded to gallery & products');
+    });
+
+    // initial render
+    renderProducts('all');
+    renderGallery();
+
+    // extra cart logic (blank)
+  </script>
+
+  <!-- footer note -->
+  <footer style="background: black; color: white; padding: 30px 0; text-align: center;">
+    <p>© 2025 Evoora Home Furniture — Luxury living, Sri Lanka ????</p>
+  </footer>
+
+  <script>
+    // close modal when click outside
+    window.onclick = function(ev) {
+      if (ev.target.classList.contains('modal')) ev.target.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
